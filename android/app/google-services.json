@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "510751182324",
+    "project_id": "fir-asif-a2926",
+    "storage_bucket": "fir-asif-a2926.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:510751182324:android:b12666e333a66a72c87da1",
+        "android_client_info": {
+          "package_name": "com.example.firbase_with_asif"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_l63dhWL14DaOFTyap9DQji3toFV5s1c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
