@@ -1,4 +1,5 @@
 import 'package:firbase_with_asif/post/post_screen.dart';
+import 'package:firbase_with_asif/ui/auth/login_with_phone.dart';
 import 'package:firbase_with_asif/ui/auth/signup_screen.dart';
 import 'package:firbase_with_asif/utils/utilities.dart';
 import 'package:firbase_with_asif/widgets/rounded_button.dart';
@@ -139,6 +140,24 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: Text('Sign up'),
                   ),
                 ],
+              ),
+              SizedBox(height: 15),
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (Context) => LoginWithPhone()),
+                  );
+                },
+                child: Container(
+                  height: 80,
+                  // width: ,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(11)),
+                    border: Border.all(color: Colors.black),
+                  ),
+                  child: Text('LogIn with phone number'),
+                ),
               ),
             ],
           ),
