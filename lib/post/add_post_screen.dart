@@ -47,6 +47,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
                     })
                     .then((value) {
                       Utilities().toastMessage('Post Added');
+                      Navigator.pop(context);
                       setState(() {
                         loading = false;
                       });
