@@ -22,7 +22,7 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
       body: Center(
         child: Text(
-          'Splash Screen, FireBase Tutorial',
+          'Splash Screen',
           style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
       ),

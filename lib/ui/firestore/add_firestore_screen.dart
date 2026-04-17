@@ -1,23 +1,25 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firbase_with_asif/utils/utilities.dart';
 import 'package:firbase_with_asif/widgets/rounded_button.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
-class AddPostScreen extends StatefulWidget {
-  const AddPostScreen({super.key});
+class Addfirestorescreen extends StatefulWidget {
+  const Addfirestorescreen({super.key});
 
   @override
-  State<AddPostScreen> createState() => _AddPostScreenState();
+  State<Addfirestorescreen> createState() => _AddPostScreenState();
 }
 
-class _AddPostScreenState extends State<AddPostScreen> {
+class _AddPostScreenState extends State<Addfirestorescreen> {
   final postController = TextEditingController();
   bool loading = false;
   final databaseRef = FirebaseDatabase.instance.ref('post');
+  final fireStore = FirebaseFirestore.instance.collection('Users');
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Add Post')),
+      appBar: AppBar(title: Text('Add firestore data')),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10),
         child: Column(
@@ -32,34 +34,30 @@ class _AddPostScreenState extends State<AddPostScreen> {
               ),
             ),
             SizedBox(height: 30),
+
             RoundedButton(
               title: 'Add Post',
+
               loading: loading,
               onTap: () {
                 setState(() {
                   loading = true;
                 });
-
                 String id = DateTime.now().microsecondsSinceEpoch.toString();
-                databaseRef
-                    .child(id)
-                    .set({
-                      'title': postController.text.toString(),
-                      'id':
-                          id, //DateTime.now().millisecondsSinceEpoch.toString(),
-                    })
+                fireStore
+                    .doc(id)
+                    .set({'title': postController.text.toString(), 'id': id})
                     .then((value) {
-                      Utilities().toastMessage('Post Added');
-                      Navigator.pop(context);
                       setState(() {
                         loading = false;
                       });
+                      Utilities().toastMessage('Post Added');
                     })
                     .onError((error, StackTrace) {
-                      Utilities().toastMessage(error.toString());
                       setState(() {
                         loading = false;
                       });
+                      Utilities().toastMessage(error.toString());
                     });
               },
             ),

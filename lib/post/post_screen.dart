@@ -17,6 +17,7 @@ class PostScreen extends StatefulWidget {
 class _PostScreenState extends State<PostScreen> {
   final auth = FirebaseAuth.instance;
   final searchFilterController = TextEditingController();
+  final editController = TextEditingController();
   final firebaseRef = FirebaseDatabase.instance.ref('post');
   @override
   Widget build(BuildContext context) {
@@ -86,6 +87,37 @@ class _PostScreenState extends State<PostScreen> {
                   return ListTile(
                     title: Text(snapshot.child('title').value.toString()),
                     subtitle: Text(snapshot.child('id').value.toString()),
+                    trailing: PopupMenuButton(
+                      itemBuilder: (context) => [
+                        PopupMenuItem(
+                          value: 1,
+                          child: ListTile(
+                            onTap: () {
+                              Navigator.pop;
+                              showMyDiolog(
+                                title,
+                                snapshot.child('id').value.toString(),
+                              );
+                            },
+                            leading: Icon(Icons.edit),
+                            title: Text('Edit'),
+                          ),
+                        ),
+                        PopupMenuItem(
+                          value: 1,
+                          child: ListTile(
+                            onTap: () {
+                              Navigator.pop(context);
+                              firebaseRef
+                                  .child(snapshot.child('id').value.toString())
+                                  .remove();
+                            },
+                            leading: Icon(Icons.delete_forever_outlined),
+                            title: Text('Delete'),
+                          ),
+                        ),
+                      ],
+                    ),
                   );
                 } else if (title.toLowerCase().contains(
                   searchFilterController.text.toLowerCase(),
@@ -102,6 +134,47 @@ class _PostScreenState extends State<PostScreen> {
           ),
         ],
       ),
+    );
+  }
+
+  Future<void> showMyDiolog(String title, String id) async {
+    editController.text = title;
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Update'),
+          content: Container(
+            child: TextField(
+              controller: editController,
+              decoration: InputDecoration(hintText: 'Edite Here'),
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+                firebaseRef
+                    .child(id)
+                    .update({'title': editController.text.toString()})
+                    .then((value) {
+                      Utilities().toastMessage('Post Updated');
+                    })
+                    .onError((error, StackTrace) {
+                      Utilities().toastMessage(error.toString());
+                    });
+              },
+              child: Text('Update'),
+            ),
+          ],
+        );
+      },
     );
   }
 }
