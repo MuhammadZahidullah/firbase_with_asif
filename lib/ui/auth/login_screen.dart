@@ -1,6 +1,7 @@
 import 'package:firbase_with_asif/post/post_screen.dart';
 import 'package:firbase_with_asif/ui/auth/login_with_phone.dart';
 import 'package:firbase_with_asif/ui/auth/signup_screen.dart';
+import 'package:firbase_with_asif/ui/forgot_password_screen.dart';
 import 'package:firbase_with_asif/utils/utilities.dart';
 import 'package:firbase_with_asif/widgets/rounded_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -124,6 +125,21 @@ class _LoginScreenState extends State<LoginScreen> {
                     Login();
                   }
                 },
+              ),
+
+              Align(
+                alignment: Alignment.bottomRight,
+                child: TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ForgotPasswordScreen(),
+                      ),
+                    );
+                  },
+                  child: Text('Forgot Password'),
+                ),
               ),
               SizedBox(height: 20),
               Row(
